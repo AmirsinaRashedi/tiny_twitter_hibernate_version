@@ -7,14 +7,14 @@ import base.service.BaseService;
 import java.io.Serializable;
 import java.util.List;
 
-public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
-        implements BaseService<T, ID> {
+public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable, R extends BaseRepository<T, ID>>
+        implements BaseService<T, ID, R> {
 
-    protected final BaseRepository<T, ID> baseRepository;
+    protected final R repository;
 
-    public BaseServiceImpl(BaseRepository<T, ID> baseRepository) {
+    public BaseServiceImpl(R repository) {
 
-        this.baseRepository = baseRepository;
+        this.repository = repository;
 
     }
 
@@ -23,15 +23,15 @@ public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
 
         try {
 
-            baseRepository.beginTransaction();
+            repository.beginTransaction();
 
-            t = baseRepository.save(t);
+            t = repository.save(t);
 
-            baseRepository.commitTransaction();
+            repository.commitTransaction();
 
         } catch (Exception e) {
 
-            baseRepository.rollbackTransaction();
+            repository.rollbackTransaction();
 
             e.printStackTrace();
 
@@ -45,15 +45,15 @@ public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
 
         try {
 
-            baseRepository.beginTransaction();
+            repository.beginTransaction();
 
-            baseRepository.delete(t);
+            repository.delete(t);
 
-            baseRepository.commitTransaction();
+            repository.commitTransaction();
 
         } catch (Exception e) {
 
-            baseRepository.rollbackTransaction();
+            repository.rollbackTransaction();
 
             e.printStackTrace();
 
@@ -68,7 +68,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
 
         try {
 
-            t = baseRepository.findById(id);
+            t = repository.findById(id);
 
         } catch (Exception e) {
 
@@ -87,7 +87,7 @@ public class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Serializable>
 
         try {
 
-            list = baseRepository.findAll();
+            list = repository.findAll();
 
         } catch (Exception e) {
 
