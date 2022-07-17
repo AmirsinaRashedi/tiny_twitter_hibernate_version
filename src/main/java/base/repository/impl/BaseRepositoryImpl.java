@@ -25,7 +25,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
         if (t.getId() == null)
             em.persist(t);
         else
-            em.merge(t);
+            t = em.merge(t);
 
         return t;
     }
@@ -57,7 +57,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
     @Override
     public void beginTransaction() {
 
-        if (getTransaction().isActive())
+        if (!getTransaction().isActive())
             getTransaction().begin();
 
     }
