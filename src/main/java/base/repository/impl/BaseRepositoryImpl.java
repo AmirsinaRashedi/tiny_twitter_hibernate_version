@@ -50,7 +50,7 @@ public abstract class BaseRepositoryImpl<T extends BaseEntity<ID>, ID extends Se
     @Override
     public List<T> findAll() {
 
-        return em.createQuery("from" + getClassType().getSimpleName(), getClassType()).getResultList();
+        return em.createQuery("from " + getClassType().getSimpleName(), getClassType()).getResultList();
 
     }
 
