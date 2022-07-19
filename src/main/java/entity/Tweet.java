@@ -20,8 +20,8 @@ public class Tweet extends BaseEntity<Long> {
 
     private LocalDateTime sendTime;
 
-//    @OneToMany(mappedBy:"")
-//    private List<TweetComment> comments;
+    @OneToMany(mappedBy = "tweet")
+    private List<TweetComment> comments;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "likes")
@@ -54,13 +54,13 @@ public class Tweet extends BaseEntity<Long> {
         this.sendTime = sendTime;
     }
 
-    //    public List<TweetComment> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(List<TweetComment> comments) {
-//        this.comments = comments;
-//    }
+    public List<TweetComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<TweetComment> comments) {
+        this.comments = comments;
+    }
 
     public List<User> getLikes() {
         return likes;
@@ -85,7 +85,9 @@ public class Tweet extends BaseEntity<Long> {
         tweetBody.append("Likes: ");
         tweetBody.append(likes.size());
         tweetBody.append("\n");
-//        comments.foreach(e-> tweetBody.append(e.toString() + "\n"));
+        tweetBody.append("comments:");
+        tweetBody.append("\n");
+        comments.forEach(e -> tweetBody.append(e.toString()).append("\n"));
         tweetBody.append("\n");
 
         return tweetBody.toString();

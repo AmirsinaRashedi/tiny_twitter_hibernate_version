@@ -63,7 +63,7 @@ public class TweetServiceImpl extends BaseServiceImpl<Tweet, Long, TweetReposito
 
             newTweet.setLikes(new ArrayList<>());
 
-//            newTweet.setComments(new ArrayList<>());
+            newTweet.setComments(new ArrayList<>());
 
         } catch (Exception e) {
 
